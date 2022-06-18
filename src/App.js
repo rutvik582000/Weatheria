@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import Navbar from './Component/Navbar'
 import Weather from './Component/Weather'
-
+import {BrowserRouter as Router,} from "react-router-dom";
 
 export default class App extends Component {
   render() {
     return (
-      <div>        
-        <Navbar/>
-        <Weather location = 'paris'/>
+      <div>       
+         <Router>
+          <Navbar/>
+          <Weather location = 'paris'/>
+         </Router>
       </div>
     )
   }

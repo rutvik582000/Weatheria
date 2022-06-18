@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import Forcast from "./Forcast";
 import Current from "./Current";
+import {
+  Switch,
+  Route,
+} from "react-router-dom";
+
 
 
 export default class Weather extends Component {
@@ -1056,10 +1061,16 @@ export default class Weather extends Component {
   render() {
     return (
       <div className="container">
-        <div>          
-          <Current response={this.state.response}/>
-          <Forcast response={this.state.response}/>
-        </div> 
+          <h3 className="text-center">
+            <img src={this.state.response.current.condition.icon} alt="img" />
+            {this.state.response.location.name}, {this.state.response.location.country}
+          </h3>
+          <p className="text-center">{this.state.response.location.localtime}</p>
+       
+        <Switch>
+          <Route exact path="/current"><Current key="current" response={this.state.response}/></Route>
+          <Route exact path="/forcast"><Forcast key="forcast" response={this.state.response}/></Route>
+        </Switch>       
       </div>
     );
   }
