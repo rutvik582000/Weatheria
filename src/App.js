@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import Navbar from './Component/Navbar'
 import Weather from './Component/Weather'
 
+
 export default class App extends Component {
   render() {
     return (
       <div>        
         <Navbar/>
-        <Weather/>
+        <Weather location = 'paris'/>
       </div>
     )
   }

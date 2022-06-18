@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import WeatherItems from "./WeatherItems";
+import Forcast from "./Forcast";
+import Current from "./Current";
+
 
 export default class Weather extends Component {
   constructor(props) {
@@ -1039,22 +1041,24 @@ export default class Weather extends Component {
       }
       };
   }
+  static defaultProps = {
+    location:'india'
+  }
 
 
   async componentDidMount() {
-    let url ="http://api.weatherapi.com/v1/forecast.json?key=9277f73f6fc547d09a262011221606&q=india&days=1&aqi=yes&alerts=yes";
+    let url =`http://api.weatherapi.com/v1/forecast.json?key=9277f73f6fc547d09a262011221606&q=${this.props.location}&days=1&aqi=yes&alerts=yes`
     let data = await fetch(url);
     let parseData = await data.json();
     this.setState({response : parseData},)
-    console.log(parseData)
   }
 
   render() {
     return (
       <div className="container">
-        <div>
-          
-          <WeatherItems response={this.state.response}/>
+        <div>          
+          <Current response={this.state.response}/>
+          <Forcast response={this.state.response}/>
         </div> 
       </div>
     );
