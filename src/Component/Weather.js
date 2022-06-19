@@ -1050,7 +1050,6 @@ export default class Weather extends Component {
     location:'india'
   }
 
-
   async componentDidMount() {
     let url =`http://api.weatherapi.com/v1/forecast.json?key=9277f73f6fc547d09a262011221606&q=${this.props.location}&days=1&aqi=yes&alerts=yes`
     let data = await fetch(url);
@@ -1058,18 +1057,20 @@ export default class Weather extends Component {
     this.setState({response : parseData},)
   }
 
+
   render() {
     return (
       <div className="container">
+        
           <h3 className="text-center">
             <img src={this.state.response.current.condition.icon} alt="img" />
             {this.state.response.location.name}, {this.state.response.location.country}
           </h3>
           <p className="text-center">{this.state.response.location.localtime}</p>
-       
         <Switch>
-          <Route exact path="/current"><Current key="current" response={this.state.response}/></Route>
-          <Route exact path="/forcast"><Forcast key="forcast" response={this.state.response}/></Route>
+          {/* <Route path="/"><Current response={this.state.response}/></Route> */}
+          <Route exact path="/"><Current response={this.state.response}/></Route>
+          <Route exact path="/forcast"><Forcast response={this.state.response}/></Route>
         </Switch>       
       </div>
     );

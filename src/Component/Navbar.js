@@ -12,8 +12,9 @@ export default class Navbar extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
-              <Link className="nav-link nav-item" to="/current">Current Weather <span className="sr-only">(current)</span></Link>
-              <Link className="nav-link nav-item" to="/forcast">Tomorrow's forcast</Link>
+              
+              <Link className="nav-link nav-item" to="/">Current<span className="sr-only">(current)</span></Link>
+              <Link className="nav-link nav-item" to="/forcast">Forcast</Link>
             </ul>
           </div>
         </nav>          
