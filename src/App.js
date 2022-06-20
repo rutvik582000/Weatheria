@@ -4,25 +4,12 @@ import Weather from "./Component/Weather";
 import { BrowserRouter as Router } from "react-router-dom";
 
 export default class App extends Component {
-  AssignArea(){
-    let e = document.querySelector('input ')
-    console.log(e.value);
-  }
   render() {
     return (
       <Router>
         <div>
           <Navbar />
-          <div className="container">
-
-          <label className="container" htmlFor="place">Enter area name : <input type="text" className="my-3" />
-          <button className="btn btn-primary btn-sm mx-3" onClick={this.AssignArea} >Fetch</button>
-          </label>
-          </div>
-          {
-            
-          }
-          <Weather location="USA" />
+          <Weather/>
         </div>
       </Router>
     );

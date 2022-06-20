@@ -5,13 +5,16 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import Spinner from "./Spinner";
 
 
 
 export default class Weather extends Component {
   constructor(props) {
     super(props);
-    this.state = {response: {
+    this.state = {
+      loading : false,
+      response: {
       "location": {
       "name": "Paris",
       "region": "Ile-de-France",
@@ -1052,16 +1055,34 @@ export default class Weather extends Component {
 
   async componentDidMount() {
     let url =`http://api.weatherapi.com/v1/forecast.json?key=9277f73f6fc547d09a262011221606&q=${this.props.location}&days=1&aqi=yes&alerts=yes`
+    this.setState({loading:true})
     let data = await fetch(url);
     let parseData = await data.json();
+    this.setState({loading:false})
+    this.setState({response : parseData},)
+  }
+  FetchWeather = async () =>{
+    let ele = document.getElementById('fetch')
+    let temp = ele.value
+    let url =`http://api.weatherapi.com/v1/forecast.json?key=9277f73f6fc547d09a262011221606&q=${temp}&days=1&aqi=yes&alerts=yes`
+    this.setState({loading:true})
+    let data = await fetch(url);
+    let parseData = await data.json();
+    this.setState({loading:false})
     this.setState({response : parseData},)
   }
 
-
   render() {
     return (
-      <div className="container">
-        
+    <>
+    <div className="container my-3">
+    <label htmlFor="input"> Enter area :  
+      <input className="my-3"  id = 'fetch' type="text" />
+    </label>
+    <button className="btn btn-primary btn-sm mx-3"  onClick={this.FetchWeather}>Fetch</button>
+    </div>
+    {this.state.loading && <Spinner/>}
+      {!this.state.loading && <div className="container">        
           <h3 className="text-center">
             <img src={this.state.response.current.condition.icon} alt="img" />
             {this.state.response.location.name}, {this.state.response.location.country}
@@ -1072,7 +1093,8 @@ export default class Weather extends Component {
           <Route exact path="/"><Current response={this.state.response}/></Route>
           <Route exact path="/forcast"><Forcast response={this.state.response}/></Route>
         </Switch>       
-      </div>
+      </div>}
+    </>
     );
   }
 }
