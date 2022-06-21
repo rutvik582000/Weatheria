@@ -3,6 +3,7 @@ import Navbar from "./Component/Navbar";
 import Weather from "./Component/Weather";
 import { BrowserRouter as Router } from "react-router-dom";
 import LoadingBar from "@weblif/react-top-loading-bar";
+import res from "./response.json"
 
 
 export default class App extends Component {
@@ -14,22 +15,17 @@ export default class App extends Component {
     this.setState({
       progress:progress
     })
-    console.log(this.apiKey);
   }
   render() {
     return (
       <>
         <div>
-          <LoadingBar
-            color="#f11946"
-            progress={this.state.progress}
-            // onLoaderFinished={() => setProgress(0)}
-          />
+          <LoadingBar color="#f11946" progress={this.state.progress}/>
         </div>
         <Router>
           <div>
             <Navbar />
-            <Weather apiKey = {this.apiKey} setProgress={this.setProgress}/>
+            <Weather res = {res.response} apiKey = {this.apiKey} setProgress={this.setProgress}/>
           </div>
         </Router>
       </>
