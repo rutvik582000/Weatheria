@@ -4,7 +4,12 @@ export default class WeatherItems extends Component {
   render() {
     return (
         <div className="container">
-          <h5>Current Weather</h5>
+          <h2 className="text-center">
+            <img src={this.props.response.current.condition.icon} alt="img" />
+            {this.props.response.location.name}, {this.props.response.location.country}
+          </h2>
+          <p className="text-center">{this.props.response.location.localtime}</p>
+          <h4>Current Weather</h4>
           <hr />
           <ul>
             <li>Weather is {this.props.response.current.condition.text}</li>

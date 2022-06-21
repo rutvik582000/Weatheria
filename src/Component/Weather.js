@@ -7,8 +7,6 @@ import {
 } from "react-router-dom";
 import Spinner from "./Spinner";
 
-
-
 export default class Weather extends Component {
   constructor(props) {
     super(props);
@@ -1054,22 +1052,24 @@ export default class Weather extends Component {
   }
 
   async componentDidMount() {
-    let url =`http://api.weatherapi.com/v1/forecast.json?key=9277f73f6fc547d09a262011221606&q=${this.props.location}&days=1&aqi=yes&alerts=yes`
+    this.props.setProgress(0)
+    let url =`http://api.weatherapi.com/v1/forecast.json?key=${this.props.apiKey}&q=${this.props.location}&days=1&aqi=yes&alerts=yes`
     this.setState({loading:true})
     let data = await fetch(url);
     let parseData = await data.json();
-    this.setState({loading:false})
-    this.setState({response : parseData},)
+    this.setState({response : parseData,loading:false},)  
+    this.props.setProgress(100)
   }
   FetchWeather = async () =>{
+    this.props.setProgress(0)
     let ele = document.getElementById('fetch')
     let temp = ele.value
-    let url =`http://api.weatherapi.com/v1/forecast.json?key=9277f73f6fc547d09a262011221606&q=${temp}&days=1&aqi=yes&alerts=yes`
+    let url =`http://api.weatherapi.com/v1/forecast.json?key=${this.props.apiKey}&q=${temp.trim() === "" ? 'India':temp}&days=1&aqi=yes&alerts=yes`
     this.setState({loading:true})
     let data = await fetch(url);
     let parseData = await data.json();
-    this.setState({loading:false})
-    this.setState({response : parseData},)
+    this.setState({response : parseData,loading:false},)
+    this.props.setProgress(100)
   }
 
   render() {
@@ -1082,12 +1082,7 @@ export default class Weather extends Component {
     <button className="btn btn-primary btn-sm mx-3"  onClick={this.FetchWeather}>Fetch</button>
     </div>
     {this.state.loading && <Spinner/>}
-      {!this.state.loading && <div className="container">        
-          <h3 className="text-center">
-            <img src={this.state.response.current.condition.icon} alt="img" />
-            {this.state.response.location.name}, {this.state.response.location.country}
-          </h3>
-          <p className="text-center">{this.state.response.location.localtime}</p>
+      {!this.state.loading && <div className="container">          
         <Switch>
           {/* <Route path="/"><Current response={this.state.response}/></Route> */}
           <Route exact path="/"><Current response={this.state.response}/></Route>

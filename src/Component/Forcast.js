@@ -4,10 +4,14 @@ export default class Forcast extends Component {
   render() {
     return (
     <div className="container">
-        <h5>Tomorrow Weather Forcast</h5>
+      <h2 className="text-center">
+            <img src={this.props.response.forecast.forecastday[0].day.condition.icon} alt="img" />
+            {this.props.response.location.name}, {this.props.response.location.country}
+          </h2>
+          <p className="text-center">{this.props.response.location.localtime}</p>
+        <h4>Tomorrow Weather Forcast</h4>
         <hr />
         <p>Weather will be {this.props.response.forecast.forecastday[0].day.condition.text} tomorrow
-            <img src={this.props.response.forecast.forecastday[0].day.condition.icon} alt="img" />
         </p>
         <ul>
             <li>Sunrise time : {this.props.response.forecast.forecastday[0].astro.sunrise}</li>
